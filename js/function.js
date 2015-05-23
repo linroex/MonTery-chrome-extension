@@ -51,19 +51,35 @@ function init(callback) {
     });
 }
 
+function CronGetData() {
+    $.getJSON("http://montery.ntust.me", {region: localStorage['region']}, function(response){
+        var remain = response.data[0].now.remain_region;
+
+        localStorage['remain'] = remain;
+
+    });
+}
+
+function setMonstor(remain) {
+    var num = (1 - remain).toFixed(2)*100;
+
+    $(".used").text(num + "%");
+
+    if(remain >= 0.1){
+        $("#monster").css("background-image", "url('images/monster1.svg')");
+    }else if(remain <= 0.1 && remain >= 0.06){
+        $("#monster").css("background-image", "url('images/monster2.svg')");
+    }else{
+        $("#monster").css("background-image", "url('images/monster3.svg')");
+    }
+}
+
 function setPopupData() {
     $.getJSON("http://montery.ntust.me", {region: localStorage['region']}, function(response){
         var remain = response.data[0].now.remain_region;
-        var num = (1 - remain).toFixed(2)*100;
-        $(".used").text(num + "%");
         
-        if(remain >= 0.1){
-            $("#monster").css("background-image", "url('images/monster1.svg')");
-        }else if(remain <= 0.1 && remain >= 0.06){
-            $("#monster").css("background-image", "url('images/monster2.svg')");
-        }else{
-            $("#monster").css("background-image", "url('images/monster3.svg')");
-        }
+        localStorage['remain'] = remain;
+        setMonstor(remain);
     });
 }
 
