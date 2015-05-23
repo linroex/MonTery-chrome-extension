@@ -1,3 +1,7 @@
 $(document).ready(function(){
-    getData();
+    if(localStorage['region'] === undefined || localStorage['region'] === 'undefined'){
+        init();
+    }else{
+        console.log(localStorage['region']);
+    }
 });
