@@ -4,4 +4,6 @@ $(document).ready(function(){
     }else{
         console.log(localStorage['region']);
     }
+    
+    setTimeout(setPopupData(), 3000);
 });

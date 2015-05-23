@@ -13,7 +13,8 @@
         "activeTab",
         "notifications",
         "geolocation",
-        "storage"
+        "storage",
+        "http://montery.ntust.me/"
     ],
     "background": {
         "scripts": ["js/jquery-2.1.4.min.js", "js/function.js", "js/background.js"]
