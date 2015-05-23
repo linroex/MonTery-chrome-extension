@@ -15,7 +15,7 @@
         "geolocation"
     ],
     "background": {
-        "scripts": ["bower_components/jquery/dist/jquery.min.js", "background.js"]
+        "scripts": ["jquery-2.1.4.min.js", "background.js"]
     },
     "web_accessible_resources": [
         "icon.png",
