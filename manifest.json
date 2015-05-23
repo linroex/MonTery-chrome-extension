@@ -3,7 +3,7 @@
 
     "name": "Monstery",
     "description": "電力快要不夠了嘛？讓 MonTery 提醒你該省點電囉！",
-    "version": "0.0.3",
+    "version": "0.1.0",
 
     "browser_action": {
         "default_icon": "images/icon.png",
