@@ -20,5 +20,6 @@
     "web_accessible_resources": [
         "icon.png",
         "jquery-2.1.4.min.js"
-    ]
+    ],
+    "content_security_policy": "script-src 'unsafe-eval' https://maps.googleapis.com/ https://maps.gstatic.com; object-src 'self'"
 }
