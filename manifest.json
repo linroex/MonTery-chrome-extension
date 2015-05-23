@@ -6,7 +6,7 @@
     "version": "0.0.1",
 
     "browser_action": {
-        "default_icon": "icon.png",
+        "default_icon": "images/icon.png",
         "default_popup": "popup.html"
     },
     "permissions": [
@@ -15,11 +15,11 @@
         "geolocation"
     ],
     "background": {
-        "scripts": ["jquery-2.1.4.min.js", "function.js", "background.js"]
+        "scripts": ["js/jquery-2.1.4.min.js", "js/function.js", "js/background.js"]
     },
     "web_accessible_resources": [
-        "icon.png",
-        "jquery-2.1.4.min.js"
+        "images/icon.png",
+        "js/jquery-2.1.4.min.js"
     ],
     "content_security_policy": "script-src 'unsafe-eval' https://maps.googleapis.com/ https://maps.gstatic.com; object-src 'self'"
 }

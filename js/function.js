@@ -3,7 +3,7 @@ function showNotification(title, message) {
         type: 'basic',
         title: title,
         message: message,
-        iconUrl: 'icon.png'
+        iconUrl: '../icon.png'
     };
 
     chrome.notifications.create('', options);
