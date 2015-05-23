@@ -72,10 +72,24 @@ function NotifyUsed() {
         var remain = response.data[0].now.remain_region.toFixed(2)*100;
         var num = 100 - remain;
         $(".used").text(num + "%");
+        
+        if(getLevel(remain) > localStorage['level']){
+            showNotification("目前電力狀態", "剩餘備轉容量：" + remain.toFixed(2) + "%\n目前狀態：" + getLevelMessage(remain));    
+        }
 
-        showNotification("目前電力狀態", "剩餘備轉容量：" + remain.toFixed(2) + "%\n目前狀態：" + getLevelMessage(remain));
+        localStorage['level'] = getLevel(remain);
         
     });
+}
+
+function getLevel(remain) {
+    if(remain >= 10){
+        return 0;
+    }else if(remain < 10 && remain >= 6){
+        return 1;
+    }else{
+        return 2;
+    }
 }
 
 function getLevelMessage(remain) {
