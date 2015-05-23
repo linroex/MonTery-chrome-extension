@@ -33,7 +33,7 @@ function getRegion(city) {
     return 'north';
 }
 
-function init() {
+function init(callback) {
     navigator.geolocation.getCurrentPosition(function(location){
         var geocoder = new google.maps.Geocoder();
 
@@ -44,9 +44,8 @@ function init() {
 
                 if(status === google.maps.GeocoderStatus.OK) {
                     var region = getRegion(response[0].address_components[4].long_name);
-                    console.log(response[0].address_components[4].long_name);
-                    console.log(region);
                     localStorage['region'] = region;
+                    callback();
                 }
         });
     });

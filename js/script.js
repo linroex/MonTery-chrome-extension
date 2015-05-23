@@ -1,9 +1,8 @@
 $(document).ready(function(){
     if(localStorage['region'] === undefined || localStorage['region'] === 'undefined'){
-        init();
+        init(setPopupData);
     }else{
-        console.log(localStorage['region']);
+        setPopupData();
     }
-    
-    setTimeout(setPopupData(), 3000);
+
 });
