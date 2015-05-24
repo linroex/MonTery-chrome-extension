@@ -33,7 +33,12 @@ function getRegion(city) {
     return 'north';
 }
 
-function init(callback) {
+function install() {
+    localStorage['level'] = 0;
+
+    chrome.alarms.create('notify', {periodInMinutes: 5});
+    chrome.alarms.create('syncdata', {periodInMinutes: 5});
+
     navigator.geolocation.getCurrentPosition(function(location){
         var geocoder = new google.maps.Geocoder();
 
@@ -44,11 +49,31 @@ function init(callback) {
 
                 if(status === google.maps.GeocoderStatus.OK) {
                     var region = getRegion(response[0].address_components[4].long_name);
+                    
                     localStorage['region'] = region;
-                    callback();
+
+                    $.getJSON("http://montery.ntust.me", {region: localStorage['region']}, function(response){
+                        var remain = response.data[0].now.remain_region;
+                        
+                        localStorage['installed'] = true;
+                        localStorage['update-time'] = new Date().toLocaleString();
+                        localStorage['remain'] = remain;
+
+                    });
                 }
         });
     });
+}
+
+function onAlarms(alarms) {
+
+    if(alarms.name === 'syncdata') {
+        CronGetData();
+    }
+
+    if(alarms.name === 'notify') {
+        NotifyUsed();
+    }
 }
 
 function CronGetData() {
@@ -79,16 +104,6 @@ function setMonstor(remain) {
     }else{
         $("#monster").css("background-image", "url('images/monster3.svg')");
     }
-}
-
-function setPopupData() {
-    $.getJSON("http://montery.ntust.me", {region: localStorage['region']}, function(response){
-        var remain = response.data[0].now.remain_region;
-        setUpdateTime();
-        localStorage['update-time'] = new Date().toLocaleString();
-        localStorage['remain'] = remain;
-        setMonstor(remain);
-    });
 }
 
 function NotifyUsed() {

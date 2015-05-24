@@ -1,8 +1,12 @@
-$(document).ready(function(){
-    if(localStorage['region'] === undefined || localStorage['region'] === 'undefined'){
-        init(setPopupData);
-    }else{
-        setMonstor(localStorage['remain']);
-    }
-
+$(document).ready(function() {
+    load();
 });
+
+function load() {
+    if(localStorage['installed'] === 'true') {
+        setMonstor(localStorage['remain']);
+    }else{
+        setTimeout(load, 1000);
+        $('.update-time').text('Loading...');
+    }
+}
