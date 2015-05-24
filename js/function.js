@@ -56,13 +56,20 @@ function CronGetData() {
         var remain = response.data[0].now.remain_region;
 
         localStorage['remain'] = remain;
+        localStorage['update-time'] = new Date().toLocaleString();
 
     });
+}
+
+function setUpdateTime() {
+    $(".update-time").text(localStorage['update-time']);
 }
 
 function setMonstor(remain) {
     var num = (1 - remain).toFixed(2)*100;
 
+    setUpdateTime();
+    
     $(".used").text(num + "%");
 
     if(remain >= 0.1){
@@ -77,25 +84,23 @@ function setMonstor(remain) {
 function setPopupData() {
     $.getJSON("http://montery.ntust.me", {region: localStorage['region']}, function(response){
         var remain = response.data[0].now.remain_region;
-        
+        setUpdateTime();
+        localStorage['update-time'] = new Date().toLocaleString();
         localStorage['remain'] = remain;
         setMonstor(remain);
     });
 }
 
 function NotifyUsed() {
-    $.getJSON("http://montery.ntust.me", {region: localStorage['region']}, function(response){
-        var remain = response.data[0].now.remain_region.toFixed(2)*100;
-        var num = 100 - remain;
-        $(".used").text(num + "%");
-        
-        if(getLevel(remain) > localStorage['level']){
-            showNotification("目前電力狀態", "剩餘備轉容量：" + remain.toFixed(2) + "%\n目前狀態：" + getLevelMessage(remain));    
-        }
+    var remain = parseFloat(localStorage['remain']).toFixed(2)*100;
+    var num = 100 - remain;
+    $(".used").text(num + "%");
+    
+    if(getLevel(remain) > localStorage['level']){
+        showNotification("目前電力狀態", "剩餘備轉容量：" + remain.toFixed(2) + "%\n目前狀態：" + getLevelMessage(remain));    
+    }
 
-        localStorage['level'] = getLevel(remain);
-        
-    });
+    localStorage['level'] = getLevel(remain);
 }
 
 function getLevel(remain) {
